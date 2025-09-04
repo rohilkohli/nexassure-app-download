@@ -6,6 +6,13 @@
   <title>Download My Android App</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    html {
+      box-sizing: border-box;
+      height: 100%;
+    }
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
     body {
       font-family: 'Roboto', Arial, sans-serif;
       background: linear-gradient(135deg, #e3f2fd 0%, #fff3e0 100%);
@@ -13,25 +20,40 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .btn-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 10px;
     }
     .container {
       max-width: 400px;
-      margin: 60px auto 0 auto;
+      margin: 40px auto 0 auto;
       background: #fff;
       padding: 40px 32px 32px 32px;
       border-radius: 18px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.10);
       text-align: center;
       animation: fadeIn 1s cubic-bezier(.73,.08,.11,.98);
+      transition: box-shadow 0.3s;
+    }
+    .container:hover {
+      box-shadow: 0 12px 40px rgba(25,103,210,0.13);
     }
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(40px);}
       to {opacity: 1; transform: translateY(0);}
     }
     .logo {
-      width: 56px;
+      width: 64px;
       margin-bottom: 18px;
       animation: popIn 0.7s cubic-bezier(.73,.08,.11,.98);
+      box-shadow: 0 2px 8px rgba(67,181,129,0.10);
+      border-radius: 12px;
     }
     @keyframes popIn {
       0% {transform: scale(0);}
@@ -44,11 +66,15 @@
       margin-bottom: 10px;
       font-size: 2rem;
       letter-spacing: 0.5px;
+      font-weight: 700;
     }
     .meta {
       font-size: 15px;
       color: #555;
       margin-bottom: 28px;
+      background: #f1f8e9;
+      border-radius: 8px;
+      padding: 6px 0;
     }
     .btn-download {
       background: linear-gradient(90deg, #1967d2 0%, #43b581 100%);
@@ -62,12 +88,16 @@
       box-shadow: 0 4px 12px rgba(67,181,129,0.12);
       transition: background 0.3s, transform 0.18s;
       margin: 25px 0 16px 0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      justify-content: center;
       position: relative;
       overflow: hidden;
+      outline: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .btn-download:hover, .btn-download:focus {
+      background: linear-gradient(90deg, #43b581 0%, #1967d2 100%);
+      transform: scale(1.04);
+      box-shadow: 0 6px 18px rgba(25,103,210,0.13);
     }
     .btn-download:active {
       transform: scale(0.98);
@@ -78,6 +108,7 @@
       vertical-align: middle;
       fill: #fff;
       animation: bounce 1s infinite;
+      margin-right: 8px;
     }
     @keyframes bounce {
       0%, 100% { transform: translateY(0);}
@@ -90,6 +121,7 @@
       display: none;
       font-size: 1.07rem;
       transition: color 0.3s;
+      text-align: center;
     }
     .progress-bar {
       display: none;
@@ -99,6 +131,7 @@
       border-radius: 100px;
       margin: 10px 0 0 0;
       overflow: hidden;
+      box-shadow: 0 2px 8px rgba(25,103,210,0.08);
     }
     .progress {
       width: 0;
@@ -124,6 +157,8 @@
       padding: 17px;
       border-radius: 10px;
       text-align: left;
+      box-shadow: 0 2px 8px rgba(67,181,129,0.07);
+      font-family: 'Roboto', Arial, sans-serif;
     }
     footer {
       margin-top: auto;
@@ -131,18 +166,35 @@
       color: #aaa;
       font-size: 13px;
       padding: 18px 0 8px 0;
+      background: transparent;
     }
     @media (max-width: 480px) {
       .container {
-        padding: 24px 10px;
+        padding: 18px 4vw;
         max-width: 98vw;
+        margin: 18px auto 0 auto;
       }
       h1 {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
+        margin-bottom: 7px;
       }
       .btn-download {
-        font-size: 17px;
-        padding: 14px 32px;
+        font-size: 16px;
+        padding: 12px 18vw;
+        margin: 18px 0 12px 0;
+      }
+      .meta {
+        font-size: 13px;
+        padding: 4px 0;
+      }
+      .logo {
+        width: 44px;
+        margin-bottom: 12px;
+      }
+      .info {
+        font-size: 13px;
+        padding: 10px;
+        margin-top: 22px;
       }
     }
   </style>
@@ -152,12 +204,14 @@
     <img src="https://img.icons8.com/color/96/000000/android-os.png" alt="App Logo" class="logo" />
     <h1>Download Nexassure App</h1>
     <div class="meta">Version: 1.0.0 &nbsp;|&nbsp; Size: 71 MB</div>
-    <button class="btn-download" id="downloadBtn">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 16v-8m0 8l-4-4m4 4l4-4M4 20h16" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Download APK
-    </button>
+    <div class="btn-center">
+      <button class="btn-download" id="downloadBtn" aria-label="Download Nexassure APK">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 16v-8m0 8l-4-4m4 4l4-4M4 20h16" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Download APK
+      </button>
+    </div>
     <div class="progress-bar" id="progressBar">
       <div class="progress" id="progress"></div>
     </div>
@@ -168,7 +222,7 @@
     </svg>
     <div class="info">
       <strong>Note:</strong> You may need to enable <em>Install from Unknown Sources</em> on your Android device to install this app.<br>
-      If download doesn't start, try refreshing the page.<br>
+      If the download doesn't start, please refresh the page or try again.<br>
       <em>Need help?</em> <a href="mailto:support@example.com">Contact support</a>
     </div>
   </div>
